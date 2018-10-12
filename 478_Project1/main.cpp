@@ -30,8 +30,8 @@ int main(int argc, char* argv[]) {
 	srand((unsigned)time(nullptr));
 
 	ScenarioA scenA;
-	std::vector<int> Ca = scenA.generateFrameVals(slotDuration, 50);
-	std::vector<int> Cc = scenA.generateFrameVals(slotDuration, 50);
+	std::vector<int> Ca = scenA.generateFrameVals(slotDuration, 300);
+	std::vector<int> Cc = scenA.generateFrameVals(slotDuration, 300);
 	scenA.runProtocol(Ca, Cc);
 
 	std::string asdf;
