@@ -66,14 +66,14 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
                 backOffC = backOffC - backOffA;
                 this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
                 Ca.erase(Ca.begin());
-                this->numCollisions = 0;
+                this->numConcurrentColl = 0;
             }
             else if (backOffA > backOffC)
             {
                 backOffA = backOffA - backOffC;
                 this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
                 Cc.erase(Cc.begin());
-                this->numCollisions = 0;
+                this->numConcurrentColl = 0;
             }
             else
             {
@@ -87,7 +87,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			backOffA = backoffGen(4, 1024, this->numConcurrentColl);
 			this->slotCount = this->slotCount + DIFS + backOffA + dataNumSlots + SIFS + ACK;
             Ca.erase(Ca.begin());
-            this->numCollisions = 0;
+            this->numConcurrentColl = 0;
 		}
 		else if (Ca.at(0) > Cc.at(0))
 		{
@@ -95,7 +95,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			backOffC = backoffGen(4, 1024, this->numConcurrentColl);
 			this->slotCount = this->slotCount + DIFS + backOffC + dataNumSlots + SIFS + ACK;
             Cc.erase(Cc.begin());
-            this->numCollisions = 0;
+            this->numConcurrentColl = 0;
 		}
 		else
 		{
@@ -108,14 +108,14 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 				backOffC = backOffC - backOffA;
 				this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
                 Ca.erase(Ca.begin());
-                this->numCollisions = 0;
+                this->numConcurrentColl = 0;
 			}
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
 				this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
                 Cc.erase(Cc.begin());
-                this->numCollisions = 0;
+                this->numConcurrentColl = 0;
 			}
 			else
 			{
