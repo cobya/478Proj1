@@ -8,6 +8,8 @@
 #include <vector>
 #include <time.h>
 
+#include "ScenarioA.h"
+#include "ScenarioB.h"
 
 int main(int argc, char* argv[]) {
 	// default simulation params
@@ -27,5 +29,10 @@ int main(int argc, char* argv[]) {
 	// seed random values
 	srand((unsigned)time(nullptr));
 
+	ScenarioA scenA;
+	scenA.testRandomValues(slotDuration, 50);
+
+	std::string asdf;
+	std::cin >> asdf;
 }
 
