@@ -70,19 +70,48 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 	int ACK = 2;
 
 	this->slotCount;
-	while (!Ca.empty() && !Cc.empty());
+	while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000);
 	{
-		if (Ca.at(0) < Cc.at(0))
+        if (Ca.at(0) < this->slotCount && Cc.at(0) < this->slotCount)
+        {
+            backOffA = backoffGen(4, 1024, this->numConcurrentColl);
+            backOffC = backoffGen(4, 1024, this->numConcurrentColl);
+            
+            if (backOffA < backOffC)
+            {
+                backOffC = backOffC - backOffA;
+                this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+                Ca.erase(Ca.begin());
+                this->numCollisions = 0;
+            }
+            else if (backOffA > backOffC)
+            {
+                backOffA = backOffA - backOffC;
+                this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+                Cc.erase(Cc.begin());
+                this->numCollisions = 0;
+            }
+            else
+            {
+                this->numConcurrentColl++;
+                this->slotCount += backOffA;
+            }
+        }
+		else if (Ca.at(0) < Cc.at(0))
 		{
 			this->slotCount = Ca.at(0);
 			backOffA = backoffGen(4, 1024, this->numConcurrentColl);
 			this->slotCount = this->slotCount + DIFS + backOffA + dataNumSlots + SIFS + ACK;
+            Ca.erase(Ca.begin());
+            this->numCollisions = 0;
 		}
 		else if (Ca.at(0) > Cc.at(0))
 		{
-			this->slotCount = Ca.at(0);
+			this->slotCount = Cc.at(0);
 			backOffC = backoffGen(4, 1024, this->numConcurrentColl);
 			this->slotCount = this->slotCount + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+            Cc.erase(Cc.begin());
+            this->numCollisions = 0;
 		}
 		else
 		{
@@ -93,12 +122,16 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			if (backOffA < backOffC)
 			{
 				backOffC = backOffC - backOffA;
-				this->slotCount += backOffA;
+				this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+                Ca.erase(Ca.begin());
+                this->numCollisions = 0;
 			}
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
-				this->slotCount += backOffC;
+				this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+                Cc.erase(Cc.begin());
+                this->numCollisions = 0;
 			}
 			else
 			{
