@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 	int cwMax{ 1024 };
 
 	double simTime{ 10.0 };
-	double slotDuration{ 20.0 / 100000.0 };
+	double slotDuration{ 20.0 / 1000000.0 };
 
 	int sifsSlots{ 1 };
 	int difsSlots{ 2 };
@@ -30,8 +30,8 @@ int main(int argc, char* argv[]) {
 	srand((unsigned)time(nullptr));
 
 	ScenarioA scenA;
-	std::vector<int> Ca = scenA.generateFrameVals(slotDuration, 300);
-	std::vector<int> Cc = scenA.generateFrameVals(slotDuration, 300);
+	std::vector<int> Ca = scenA.generateFrameVals(slotDuration, 50);
+	std::vector<int> Cc = scenA.generateFrameVals(slotDuration, 50);
 	scenA.runProtocol(Ca, Cc);
 
 	std::string asdf;
