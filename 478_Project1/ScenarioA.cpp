@@ -7,42 +7,22 @@ ScenarioA::ScenarioA()
 
 }
 
-std::vector<int> generateCVals(double frameTime) {
-	std::vector<double> randomUVals;
-}
+std::vector<int> generateFrameVals(double frameTime, int lambda) {
+	// random frame times
+	std::vector<int> randomFrameVals;
 
-std::vector<double> generateRandomU() {
-	std::vector<double> randVals;
+	double totalMs{ 0 };
+	int randFrame{ 0 };
 
-	for (int i = 0; i < 5000; i++) {
+	while (randFrame < 100000) {
 		double randVal = ((double)rand() / (double)RAND_MAX);
-		randVals.push_back(randVal);
+		randVal = (-1.0 / (double)lambda) * log(1 - randVal); // get X values
+		totalMs += randVal;
+		randFrame = (totalMs / frameTime);
+		randomFrameVals.push_back(randFrame);
 	}
 
-	return randVals;
-}
-
-std::vector<double> generateXFromU(int lambda, std::vector<double> U) {
-	std::vector<double> xVals{ U };
-
-	for (auto& elem : xVals) {
-		elem = (-1.0 / (double)lambda) * log(1 - elem);
-	}
-
-	return xVals;
-}
-
-std::vector<int> generateCVals(std::vector<double> X, double frameTime) {
-	double h = 0;
-	std::vector<int> C(0, X.size());
-
-	for (int i = 0; i < X.size(); i++)
-	{
-		h = X.at(i) + h;
-		C.at(i) = int()(h / frameTime);
-	}
-
-	return C;
+	return randomFrameVals;
 }
 
 // generate a random backoff value
@@ -58,6 +38,10 @@ void printVec(std::vector<T> vec) {
 		std::cout << elem << " ";
 	}
 	std::cout << std::endl;
+}
+
+void ScenarioA::testRandomValues(double frameTime, int lambda) {
+	printVec(generateFrameVals(frameTime, lambda));
 }
 
 void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {

@@ -29,6 +29,7 @@ private:
 
 public:
 	ScenarioA();
+	void testRandomValues(double frameTime, int lambda);
 	void runProtocol(std::vector<int> Ca, std::vector<int> Cc);
 };
 
