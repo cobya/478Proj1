@@ -4,10 +4,15 @@
 
 ScenarioA::ScenarioA()
 {
-
+	this->slotCount = 0;
+	this->numConcurrentColl = 0;
+	this->nodeACollisions = 0;
+	this->nodeASuccesses = 0;
+	this->nodeCCollisions = 0;
+	this->nodeCSuccesses = 0;
 }
 
-std::vector<int> generateFrameVals(double frameTime, int lambda) {
+std::vector<int> ScenarioA::generateFrameVals(double frameTime, int lambda) {
 	// random frame times
 	std::vector<int> randomFrameVals;
 
@@ -54,7 +59,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 	int ACK = 2;
 
 	this->slotCount;
-	while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000);
+	while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000)
 	{
         if (Ca.at(0) < this->slotCount && Cc.at(0) < this->slotCount)
         {

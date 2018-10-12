@@ -19,16 +19,13 @@ private:
 	// global slot counter
 	int slotCount;
 
-	// define if channels are busy
-	bool channelABusy;
-	bool channelCBusy;
-
 	// keep a running backoff count for each channel
 	int channelABackoffCount;
 	int channelBBackoffCount;
 
 public:
 	ScenarioA();
+	std::vector<int> generateFrameVals(double frameTime, int lambda);
 	void testRandomValues(double frameTime, int lambda);
 	void runProtocol(std::vector<int> Ca, std::vector<int> Cc);
 };

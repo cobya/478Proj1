@@ -1,3 +1,3 @@
 ﻿  ScenarioA.cpp
-c:\users\cobya\documents\college - u of a\dropbox\ece 478\478_project1\478_project1\scenarioa.cpp(21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\cobya\documents\college - u of a\dropbox\ece 478\478_project1\478_project1\scenarioa.cpp(26): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   478_Project1.vcxproj -> C:\Users\cobya\Documents\College - U of A\Dropbox\ECE 478\478_Project1\Debug\478_Project1.exe
