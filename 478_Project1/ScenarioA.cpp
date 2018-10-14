@@ -145,4 +145,106 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 
 		}
 	}
+    void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
+    {
+        
+        int backOffA = 0;
+        int backOffC = 0;
+        int dataNumSlots = 100;
+        int DIFS = 2;
+        int SIFS = 1;
+        int ACK = 2;
+        int RTS = 2;
+        int CTS = 2;
+        
+        this->slotCount;
+        while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000)
+        {
+            backOffA = backoffGen(4, 1024, this->numConcurrentColl);
+            backOffC = backoffGen(4, 1024, this->numConcurrentColl);
+            if (Ca.at(0) < this->slotCount && Cc.at(0) < this->slotCount)
+            {
+                
+                if (backOffA < backOffC)
+                {
+                    backOffC = backOffC - backOffA;
+                    this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+                    Ca.erase(Ca.begin());
+                    this->numConcurrentColl = 0;
+                    this->nodeASuccesses++;
+                }
+                else if (backOffA > backOffC)
+                {
+                    backOffA = backOffA - backOffC;
+                    this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+                    Cc.erase(Cc.begin());
+                    this->numConcurrentColl = 0;
+                    this->nodeCSuccesses++;
+                }
+                else
+                {
+                    this->numConcurrentColl++;
+                    this->slotCount += backOffA;
+                    this->nodeACollisions++;
+                    this->nodeCCollisions++;
+                }
+            }
+            else if (Ca.at(0)+backOffA < Cc.at(0)+backOffC)
+            {
+                if (Ca.at(0) > this->slotCount)
+                {
+                    this->slotCount = Ca.at(0);
+                }
+                
+                this->slotCount = this->slotCount + DIFS + backOffA + dataNumSlots + SIFS + ACK;
+                Ca.erase(Ca.begin());
+                this->numConcurrentColl = 0;
+                this->nodeASuccesses++;
+            }
+            else if (Ca.at(0) + backOffA > Cc.at(0) + backOffC)
+            {
+                if (Cc.at(0) > this->slotCount)
+                {
+                    this->slotCount = Cc.at(0);
+                }
+                this->slotCount = this->slotCount + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+                Cc.erase(Cc.begin());
+                this->numConcurrentColl = 0;
+                this->nodeCSuccesses++;
+            }
+            else
+            {
+                if (Ca.at(0) > this->slotCount)
+                {
+                    this->slotCount = Ca.at(0);
+                }
+                
+                
+                if (backOffA < backOffC)
+                {
+                    backOffC = backOffC - backOffA;
+                    this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+                    Ca.erase(Ca.begin());
+                    this->numConcurrentColl = 0;
+                    this->nodeASuccesses++;
+                }
+                else if (backOffA > backOffC)
+                {
+                    backOffA = backOffA - backOffC;
+                    this->slotCount += + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+                    Cc.erase(Cc.begin());
+                    this->numConcurrentColl = 0;
+                    this->nodeCSuccesses++;
+                }
+                else
+                {
+                    this->numConcurrentColl++;
+                    this->slotCount += backOffA;
+                    this->nodeACollisions++;
+                    this->nodeCCollisions++;
+                }
+                
+            }
+        }
+    }
 }

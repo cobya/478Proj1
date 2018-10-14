@@ -95,5 +95,52 @@ void ScenarioB::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
             }
         }
     }
-
+    void ScenarioB::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
+    {
+        int backOffA = 0;
+        int backOffC = 0;
+        int dataNumSlots = 100;
+        int DIFS = 2;
+        int SIFS = 1;
+        int ACK = 2;
+        int RTS = 2;
+        int CTS = 2;
+        while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000)
+        {
+            backOffA = backoffGenScenB(4, 1024, this->numConcurrentColl);
+            backOffC = backoffGenScenB(4, 1024, this->numConcurrentColl);
+            if(Ca.at(0) > Cc.at(0) && Ca.at(0) < Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC + RTS + CTS)
+            {
+                this->nodeACollisions++;
+                this->nodeCCollisions++;
+                this->slotCount = Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC + RTS + CTS;
+                Ca.erase(Ca.begin());
+                Cc.erase(Cc.begin());
+                
+            }
+            else if(Cc.at(0) > Ca.at(0) && Cc.at(0) < Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA + RTS + CTS)
+            {
+                this->nodeCCollisions++;
+                this->nodeACollisions++;
+                this->slotCount = Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA + RTS + CTS;
+                Ca.erase(Ca.begin());
+                Cc.erase(Cc.begin());
+                
+            }
+            else
+            {
+                if(Ca.at(0) < Cc.at(0))
+                {
+                    this->nodeASuccesses++;
+                    this->slotCount = Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA + RTS + CTS;
+                    Ca.erase(Ca.begin());
+                }
+                else
+                {
+                    this->nodeCSuccesses++;
+                    this->slotCount = Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC + RTS + CTS;
+                    Cc.erase(Cc.begin());
+                }
+            }
+    }
 }
