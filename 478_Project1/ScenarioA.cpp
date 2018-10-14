@@ -75,7 +75,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
-				this->slotCount += +DIFS + backOffC + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffC + dataNumSlots + SIFS + ACK;
 				Cc.erase(Cc.begin());
 				this->numConcurrentColl = 0;
 				this->nodeCSuccesses++;
@@ -83,7 +83,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			else
 			{
 				this->numConcurrentColl++;
-				this->slotCount += backOffA;
+				this->slotCount += DIFS + backOffC + dataNumSlots + SIFS;
 				this->nodeACollisions++;
 				this->nodeCCollisions++;
 			}
@@ -130,7 +130,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
-				this->slotCount += +DIFS + backOffC + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffC + dataNumSlots + SIFS + ACK;
 				Cc.erase(Cc.begin());
 				this->numConcurrentColl = 0;
 				this->nodeCSuccesses++;
@@ -138,7 +138,7 @@ void ScenarioA::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			else
 			{
 				this->numConcurrentColl++;
-				this->slotCount += backOffA;
+				this->slotCount += DIFS + backOffC + dataNumSlots + SIFS;
 				this->nodeACollisions++;
 				this->nodeCCollisions++;
 			}
@@ -171,7 +171,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			if (backOffA < backOffC)
 			{
 				backOffC = backOffC - backOffA;
-				this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffA + RTS + CTS + dataNumSlots + SIFS + ACK;
 				Ca.erase(Ca.begin());
 				this->numConcurrentColl = 0;
 				this->nodeASuccesses++;
@@ -179,7 +179,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
-				this->slotCount += +DIFS + backOffC + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffC + RTS + CTS + dataNumSlots + SIFS + ACK;
 				Cc.erase(Cc.begin());
 				this->numConcurrentColl = 0;
 				this->nodeCSuccesses++;
@@ -187,7 +187,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			else
 			{
 				this->numConcurrentColl++;
-				this->slotCount += backOffA;
+                this->slotCount += backOffC + RTS;
 				this->nodeACollisions++;
 				this->nodeCCollisions++;
 			}
@@ -199,7 +199,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 				this->slotCount = Ca.at(0);
 			}
 
-			this->slotCount = this->slotCount + DIFS + backOffA + dataNumSlots + SIFS + ACK;
+			this->slotCount = this->slotCount + DIFS + backOffA + RTS + CTS + dataNumSlots + SIFS + ACK;
 			Ca.erase(Ca.begin());
 			this->numConcurrentColl = 0;
 			this->nodeASuccesses++;
@@ -210,7 +210,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			{
 				this->slotCount = Cc.at(0);
 			}
-			this->slotCount = this->slotCount + DIFS + backOffC + dataNumSlots + SIFS + ACK;
+			this->slotCount = this->slotCount + DIFS + backOffC + RTS + CTS + dataNumSlots + SIFS + ACK;
 			Cc.erase(Cc.begin());
 			this->numConcurrentColl = 0;
 			this->nodeCSuccesses++;
@@ -226,7 +226,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			if (backOffA < backOffC)
 			{
 				backOffC = backOffC - backOffA;
-				this->slotCount += DIFS + backOffA + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffA + RTS + CTS + dataNumSlots + SIFS + ACK;
 				Ca.erase(Ca.begin());
 				this->numConcurrentColl = 0;
 				this->nodeASuccesses++;
@@ -234,7 +234,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			else if (backOffA > backOffC)
 			{
 				backOffA = backOffA - backOffC;
-				this->slotCount += +DIFS + backOffC + dataNumSlots + SIFS + ACK;
+				this->slotCount += DIFS + backOffC + RTS + CTS + dataNumSlots + SIFS + ACK;
 				Cc.erase(Cc.begin());
 				this->numConcurrentColl = 0;
 				this->nodeCSuccesses++;
@@ -242,7 +242,7 @@ void ScenarioA::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
 			else
 			{
 				this->numConcurrentColl++;
-				this->slotCount += backOffA;
+				this->slotCount += backOffA + RTS;
 				this->nodeACollisions++;
 				this->nodeCCollisions++;
 			}
