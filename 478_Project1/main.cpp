@@ -29,10 +29,15 @@ int main(int argc, char* argv[]) {
 	// seed random values
 	srand((unsigned)time(nullptr));
 
-	ScenarioA scenA;
-	std::vector<int> Ca = scenA.generateFrameVals(slotDuration, 50);
-	std::vector<int> Cc = scenA.generateFrameVals(slotDuration, 50);
-	scenA.runProtocol(Ca, Cc);
+	ScenarioA scenACSMA1;
+	std::vector<int> Ca = scenACSMA1.generateFrameVals(slotDuration, 300);
+	std::vector<int> Cc = scenACSMA1.generateFrameVals(slotDuration, 600);
+	scenACSMA1.runProtocol(Ca, Cc);
+
+	ScenarioB scenBCSMA1;
+	Ca = scenBCSMA1.generateFrameVals(slotDuration, 50);
+	Cc = scenBCSMA1.generateFrameVals(slotDuration, 50);
+	scenBCSMA1.runProtocol(Ca, Cc);
 
 	std::string asdf;
 	std::cin >> asdf;

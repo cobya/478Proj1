@@ -29,7 +29,7 @@ std::vector<int> ScenarioB::generateFrameVals(double frameTime, int lambda) {
 }
 
 // generate a random backoff value
-int backoffGen(int cw0, int cwMax, int numCollisions) {
+int backoffGenScenB(int cw0, int cwMax, int numCollisions) {
     int backoffVal{ rand() % ((int)pow(2, numCollisions) * cw0) };
     
     return backoffVal < cwMax ? backoffVal : cwMax;
@@ -59,8 +59,8 @@ void ScenarioB::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
     this->slotCount;
     while (!Ca.empty() && !Cc.empty() && this->slotCount < 100000)
     {
-        backOffA = backoffGen(4, 1024, this->numConcurrentColl);
-        backOffC = backoffGen(4, 1024, this->numConcurrentColl);
+        backOffA = backoffGenScenB(4, 1024, this->numConcurrentColl);
+        backOffC = backoffGenScenB(4, 1024, this->numConcurrentColl);
         if(Ca.at(0) > Cc.at(0) && Ca.at(0) < Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC)
         {
             this->nodeACollisions++;
@@ -89,4 +89,5 @@ void ScenarioB::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
             }
         }
     }
+
 }
