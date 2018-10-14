@@ -65,26 +65,32 @@ void ScenarioB::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
         {
             this->nodeACollisions++;
             this->nodeCCollisions++;
+            this->slotCount = Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC;
             Ca.erase(Ca.begin());
             Cc.erase(Cc.begin());
+            
         }
         else if(Cc.at(0) > Ca.at(0) && Cc.at(0) < Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA)
         {
             this->nodeCCollisions++;
             this->nodeACollisions++;
+            this->slotCount = Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA;
             Ca.erase(Ca.begin());
             Cc.erase(Cc.begin());
+            
         }
         else
         {
             if(Ca.at(0) < Cc.at(0))
             {
                 this->nodeASuccesses++;
+                this->slotCount = Ca.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffA;
                 Ca.erase(Ca.begin());
             }
             else
             {
                 this->nodeCSuccesses++;
+                this->slotCount = Cc.at(0) + dataNumSlots + DIFS + SIFS + ACK + backOffC;
                 Cc.erase(Cc.begin());
             }
         }
