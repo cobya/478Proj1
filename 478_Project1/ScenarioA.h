@@ -28,5 +28,6 @@ public:
 	std::vector<int> generateFrameVals(double frameTime, int lambda);
 	void testRandomValues(double frameTime, int lambda);
 	void runProtocol(std::vector<int> Ca, std::vector<int> Cc);
+	void runProtocol2(std::vector<int> Ca, std::vector<int> Cc);
 };
 

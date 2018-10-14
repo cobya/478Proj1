@@ -27,6 +27,7 @@ public:
     ScenarioB();
     std::vector<int> generateFrameVals(double frameTime, int lambda);
     void testRandomValues(double frameTime, int lambda);
+	void runProtocol2(std::vector<int> Ca, std::vector<int> Cc);
     void runProtocol(std::vector<int> Ca, std::vector<int> Cc);
 };
 

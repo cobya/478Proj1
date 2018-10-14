@@ -35,8 +35,8 @@ int main(int argc, char* argv[]) {
 	scenACSMA1.runProtocol(Ca, Cc);
 
 	ScenarioB scenBCSMA1;
-	Ca = scenBCSMA1.generateFrameVals(slotDuration, 50);
-	Cc = scenBCSMA1.generateFrameVals(slotDuration, 50);
+	Ca = scenBCSMA1.generateFrameVals(slotDuration, 600);
+	Cc = scenBCSMA1.generateFrameVals(slotDuration, 300);
 	scenBCSMA1.runProtocol(Ca, Cc);
 
 	std::string asdf;
