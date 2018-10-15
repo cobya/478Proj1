@@ -95,7 +95,6 @@ void ScenarioB::runProtocol(std::vector<int> Ca, std::vector<int> Cc) {
 			}
 		}
 	}
-
 }
 
 void ScenarioB::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
@@ -194,7 +193,6 @@ void ScenarioB::runProtocol2(std::vector<int> Ca, std::vector<int> Cc)
                 this->nodeACollisions++;
                 this->nodeCCollisions++;
             }
-            
         }
     }
 }
